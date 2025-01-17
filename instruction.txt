@@ -1,0 +1,12 @@
+Buat aplikasi sederhana Role-Based Access Control (RBAC) 
+dengan backend berbasis machine learning yang mendukung pengelolaan 
+user, 
+role, 
+dan permission.
+
+Detail Tugas: 
+Buat struktur database untuk menyimpan user, role, dan permission.
+Buat endpoint untuk mengecek akses user menggunakan model berbasis NLP untuk mendeteksi niat (intent) dari input teks user 
+(misalnya: "Can I edit this document?").
+Tampilkan relasi antar tabel dan implementasi logika sederhana.
+
