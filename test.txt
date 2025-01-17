@@ -1,0 +1,26 @@
+input:
+{
+    "user_id":1,
+    "intent": "Can i delete this document?"
+}
+
+
+output:
+{
+    "access": "denied",
+    "permission": "delete_document"
+}
+
+
+input:
+{
+    "user_id":1,
+    "intent": "Can i edit this document?"
+}
+
+
+output:
+{
+    "access": "granted",
+    "permission": "edit_document"
+}
