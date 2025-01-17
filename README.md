@@ -81,7 +81,7 @@ Untuk menjalankan aplikasi, gunakan perintah berikut:
 ```bash
 python app.py
 
-Aplikasi akan berjalan di http://127.0.0.1:5000/check-access melalui postman
+Aplikasi akan berjalan di http://127.0.0.1:5000/
 ```
 
-Contoh test input dan juga output berada pada dokumen test.txt
+Contoh test input dan juga output berada pada dokumen test.txt dan di POST melalui Postman.
