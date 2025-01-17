@@ -31,6 +31,21 @@ corpus = [
 
 vectorizer.fit(corpus)
 
+# Fungsi untuk mendapatkan permissions user dari database
+def get_user_permissions(user_id):
+    conn = sqlite3.connect('rbac.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT p.permission_name
+        FROM permission p
+        JOIN rolepermission rp ON rp.permission_id = p.id
+        JOIN user u ON u.role_id = rp.role_id
+        WHERE u.id = ?
+    """, (user_id,))
+    user_permissions = [row[0] for row in cursor.fetchall()]
+    conn.close()
+    return user_permissions
+
 # Endpoint untuk cek akses
 @app.route('/check-access', methods=['POST'])
 def check_access():
@@ -61,19 +76,26 @@ def check_access():
     # if detected_permission in user_permissions:
     #     return jsonify({"access": "granted", "permission": detected_permission})
     # return jsonify({"access": "denied",  "permission": detected_permission})
+        # Ambil permissions user dari database
+        user_permissions = get_user_permissions(user_id)
+        print(f"User Permissions: {user_permissions}")
+
+        # Menentukan permission yang sesuai dengan intent
         if 'edit' in intent:
             permission = 'edit_document'
-            access = 'granted'
         elif 'view' in intent:
             permission = 'view_document'
-            access = 'granted'
         elif 'delete' in intent:
             permission = 'delete_document'
-            access = 'granted'
         else:
             permission = 'unknown'
+
+        # Cek user memiliki permission untuk melakukan aksi
+        if permission in user_permissions:
+            access = 'granted'
+        else:
             access = 'denied'
-            
+
         return jsonify({
             'access': access,
             'permission': permission
